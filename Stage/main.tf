@@ -10,7 +10,7 @@ variable "client_secret" {}
 variable "tenant_id" {}
 variable "subscriptionid" {}
 variable "web_server_location" {}
-variable "web_server_rg" {}
+variable "app_server_rg" {}
 variable "resource_prefix" {}
 variable "web_server_address_space" {}
 variable "web_server_name" {}
@@ -30,7 +30,7 @@ locals {
 }
 
 resource "azurerm_resource_group" "App_server_rg" {
-  name     = "${var.web_server_rg}"
+  name     = "${var.app_server_rg}"
   location = "${var.web_server_location}"
 
 tags {
@@ -41,7 +41,7 @@ tags {
 resource "azurerm_virtual_network" "web_server_vnet" {
   name                        = "${var.resource_prefix}-vnet"
   location                    = "${var.web_server_location}"
-  resource_group_name         = "${azurerm_resource_group.web_server_rg.name}"
+  resource_group_name         = "${azurerm_resource_group.App_server_rg.name}"
   address_space               = ["${var.web_server_address_space}"]
 
 }
